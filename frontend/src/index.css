@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary: #5cb85c;
+    --error: #cc0000;
+    --black: #222831;
+    --grey: #393E46;
+    --blue: #00ADB5;
+    --white: #EEEEEE;
+}
+
+body {
+    background-color: var(--white);
+    margin: 0;
+    font-family: "Montserrat";
+    color: var(--black);
+}
+
+header {
+    background-color: var(--black);
+    font-size: 0.7rem;
+}
+
+header .navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.home h2, p{
+    max-width: 600px;
+    margin: 0 auto;
+    margin-block: 10px;
+}
+
+.pages {
+    max-width: 1400px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.post-container {
+    max-width: 600px;
+    margin: 0 auto;
+    border-bottom: 2px solid var(--black);
+    padding: 10px;
+    position: relative;
+}
+
+.post-container h3 {
+    display: inline;
+}
+
+.post-container .post-info {
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.post-container .delete-btn {
+    font-size: 3rem;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.delete-btn:hover {
+    color: var(--error);
+}
+
+.post-actions {
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+}
+
+.post-container .edit {
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.post-container img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.post-container .action-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.action-container span {
+    margin: 5px;
+}
+
+.action-container .count {
+    font-size: 1.3rem;
+}
+
+.material-symbols-outlined:hover {
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.post-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: right;
+    background-color: var(--grey);
+    padding: 20px 20px 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.post-form-container textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--grey);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+    resize: none;
+}
+
+.post-form-container button {
+    background-color: var(--white);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    color: var(--grey);
+    font-size: 1rem;
+    height: 2.2rem;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.post-form-container button:hover {
+    background-color: var(--blue);
+}
+
+@media screen and (max-width: 400px) {
+    .post-form-container button {
+        width: 100%;
+    }
+
+    .post-form-container input {
+        width: 100% !important;
+    }
+
+    .post-actions {
+        position: relative;
+        display: flex;
+        justify-content: end;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .modal-footer button {
+        width: 100% !important;
+        margin: 0 !important;
+        margin-block: 5px !important;
+    }
+}
+
+.post-form-container input {
+    width: 250px;
+    max-width: 100%;
+    color: #444;
+    padding: 5px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    border: 1px solid #555;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.post-form-container input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--grey);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+}
+
+.post-form-container input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: var(--grey);
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.post-form-container input[type=file]::file-selector-button:hover {
+    background: var(--blue);
+}
+
+.posting-btn {
+    pointer-events: none;
+}
+
+
+/* MODAL */
+.modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 150px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--white);
+    margin: auto;
+    padding: 0;
+    border: 2px solid var(--black);
+    border-radius: 15px;
+    width: 50%;
+    animation-name: animateModal;
+    animation-duration: 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.modal-header {
+    padding: 4px 16px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 10px 10px 0 0;
+}
+
+.close-modal-icon {
+    cursor: pointer;
+    font-size: 2.5rem;
+    float: right;
+    font-weight: bold;
+    padding: 0;
+    transition: color .2s ease-in-out;
+}
+
+.close-modal-icon:hover {
+    color: #999;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--grey);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+    margin-block: 5px;
+}
+
+.modal-body textarea {
+    width: 100%;
+    height: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--grey);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+    resize: none;
+}
+
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+
+.modal-footer button {
+    background-color: var(--grey);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    color: var(--white);
+    font-size: 1rem;
+    height: 2.2rem;
+    width: 40%;
+    margin: 10px;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.modal-footer button:hover {
+    background-color: var(--blue);
+}
+
+.modal-delete-btn:hover {
+    background-color: var(--error) !important;
+}
+
+@keyframes animateModal {
+    from {
+        top: -200px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
