@@ -56,7 +56,28 @@ userSchema.statics.signup = async function (first_name, last_name, email, passwo
     const hash = await bcrypt.hash(password, salt);
 
     // create user
-    const user = await this.create({ first_name, last_name, email, password, avatarUrl });
+    const user = await this.create({ first_name, last_name, email, password: hash, avatarUrl });
+    return user;
+}
+
+userSchema.statics.login = async function (email, password) {
+    // check if email and password are filled
+    if (!email || !password) {
+        throw Error("All fields are required!");
+    }
+
+    // find user by email
+    const user = await this.findOne({ email });
+    if (!user) {
+        throw Error("Incorrect credentials!");
+    }
+    
+    // check if password is correct
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+        throw Error("Incorrect credentials!");
+    }
+
     return user;
 }
 
