@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    first_name: {
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
@@ -29,12 +29,16 @@ const userSchema = new Schema({
 
 }, { timestamps: true });
 
-userSchema.statics.signup = async function (first_name, last_name, email, password, avatarUrl) {
+userSchema.statics.signup = async function (firstName, lastName, email, password, avatarUrl) {
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(password);
     // validation
-    if (!first_name || !last_name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
         throw Error("All fields are required!");
     }
-    if (first_name.length > 20 || last_name.length > 20) {
+    if (firstName.length > 20 || lastName.length > 20) {
         throw Error("Enter your real name!");
     }
     if (!validator.isEmail(email)) {
@@ -56,7 +60,7 @@ userSchema.statics.signup = async function (first_name, last_name, email, passwo
     const hash = await bcrypt.hash(password, salt);
 
     // create user
-    const user = await this.create({ first_name, last_name, email, password: hash, avatarUrl });
+    const user = await this.create({ firstName, lastName, email, password: hash, avatarUrl });
     return user;
 }
 
