@@ -35,13 +35,15 @@ header a {
     color: var(--white);
 }
 
-.home h2, p, .searchbar-container{
+.home h2,
+p,
+.searchbar-container {
     max-width: 600px;
     margin: 0 auto;
     margin-block: 10px;
 }
 
-.searchbar-container input{
+.searchbar-container input {
     width: 50%;
     padding: 10px;
     box-sizing: border-box;
@@ -174,7 +176,6 @@ header a {
         display: flex;
         justify-content: end;
     }
-
 }
 
 @media screen and (max-width: 480px) {
@@ -349,18 +350,47 @@ header a {
 }
 
 /* Navigation */
-nav { 
+nav {
     display: flex;
     align-items: center;
+}
+
+nav span {
+    color: var(--white);
+    font-size: .9rem;
+    margin-right: 10px;
 }
 
 nav a {
     margin-left: 10px;
     font-size: 1rem;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ddd;
+}
+
+nav button {
+    border: 2px solid var(--error);
+    background: none;
+    color: var(--error);
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background-color: var(--error);
+    color: var(--black);
 }
 
 /* Sign up and login forms */
-form.signup, form.login {
+form.signup,
+form.login {
     max-width: 600px;
     margin: 40px auto;
     padding: 20px;
@@ -400,4 +430,10 @@ form.login button {
 form.signup button:hover,
 form.login button:hover {
     background-color: #ddd;
+}
+
+.error {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--error);
 }

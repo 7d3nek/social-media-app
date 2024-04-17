@@ -11,10 +11,6 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(firstName);
-        // console.log(lastName);
-        // console.log(email);
-        // console.log(password);
         await signup(firstName, lastName, email, password, avatarUrl);
     }
 
@@ -30,7 +26,7 @@ const Signup = () => {
             <label>Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button disabled={isLoading}>Sign up</button>
-            {error && <div className="error">{error}</div>}
+            <br />{error && <div className="error">{error}</div>}
         </form>
     );
 }
