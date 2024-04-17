@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { storage } from "../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function PostForm() {
 
@@ -12,6 +13,7 @@ function PostForm() {
     const [body, setBody] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const queryClient = useQueryClient();
+    const { user } = useAuthContext();
 
     const uploadImage = async () => {
         if (image) {
@@ -31,6 +33,9 @@ function PostForm() {
 
     const createPost = async (e) => {
         e.preventDefault();
+        if (!user) {
+            return;
+        }
         if (title === "" || body === "") return;
         setIsLoading(true);
         let post = {
@@ -49,7 +54,8 @@ function PostForm() {
             method: 'POST',
             body: JSON.stringify(post),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         });
 

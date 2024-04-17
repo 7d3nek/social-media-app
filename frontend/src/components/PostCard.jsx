@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import { storage } from "../config/firebase";
 import { ref, deleteObject } from "firebase/storage";
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function PostCard({ id, title, author, createdAt, body, imageName, imageUrl, edited, likes, dislikes }) {
     const queryClient = useQueryClient();
@@ -11,6 +12,7 @@ function PostCard({ id, title, author, createdAt, body, imageName, imageUrl, edi
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [newTitle, setNewTitle] = useState("");
     const [newBody, setNewBody] = useState("");
+    const { user } = useAuthContext();
 
     const updatePost = async () => {
         if (!newBody && !newTitle) return;
@@ -23,7 +25,8 @@ function PostCard({ id, title, author, createdAt, body, imageName, imageUrl, edi
             method: 'PATCH',
             body: JSON.stringify(editedPost),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         });
 
@@ -35,8 +38,13 @@ function PostCard({ id, title, author, createdAt, body, imageName, imageUrl, edi
     }
 
     const deletePost = async () => {
+        if (!user) return;
+
         await fetch(`http://localhost:3000/posts/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         });
 
         if (imageName !== null) {
@@ -45,7 +53,7 @@ function PostCard({ id, title, author, createdAt, body, imageName, imageUrl, edi
                 await deleteObject(imageRef);
                 console.log("Image removed from storage");
             } catch (error) {
-                console.log(error);   
+                console.log(error);
             }
         }
         setShowDeleteModal(false);
